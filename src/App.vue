@@ -1,11 +1,9 @@
 <template>
   <el-container>
     <el-header>
-
       <el-button type="text">上传<i class="el-icon-upload el-icon--right"></i></el-button>
       <el-button type="text">登录</el-button>
       <el-button type="primary">注册账户</el-button>
-
     </el-header>
     <el-main>
       <router-view v-slot="{ Component }">
@@ -27,13 +25,20 @@ body,
 #app {
   width: 100%;
   height: 100%;
+  background: url("./assets/background.jpg") no-repeat;
+  background-position: 100% 100%;
+  background-size: cover;
+}
+.el-main {
+  top: 60px;
+  bottom: 60px;
 }
 .el-header,
-.el-footer {
+.el-footer,
+.el-main {
   position: fixed;
   left: 0;
   right: 0;
-  z-index: 1;
   color: #fff;
 }
 .el-header {
