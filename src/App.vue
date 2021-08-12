@@ -14,6 +14,10 @@
         </keep-alive>
       </router-view>
     </el-main>
+    <el-footer>
+      <p>本站已托管 100,00.00 张图片</p>
+      <p>访客：123</p>
+    </el-footer>
   </el-container>
 
 </template>
@@ -24,15 +28,16 @@ body,
   width: 100%;
   height: 100%;
 }
-.el-header {
+.el-header,
+.el-footer {
   position: fixed;
-  top: 0;
   left: 0;
   right: 0;
   z-index: 1;
   color: #fff;
 }
 .el-header {
+  top: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -42,6 +47,13 @@ body,
   .el-button--primary {
     padding: 0 5px;
     min-height: 25px !important;
+  }
+}
+.el-footer {
+  bottom: 0;
+  text-align: center;
+  p {
+    line-height: 20px;
   }
 }
 </style>
