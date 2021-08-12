@@ -2,7 +2,10 @@
   <el-container>
     <el-header>
       <el-button type="text">上传<i class="el-icon-upload el-icon--right"></i></el-button>
-      <el-button type="text">登录</el-button>
+      <el-button
+        type="text"
+        @click="handleToLogin"
+      >登录</el-button>
       <el-button type="primary">注册账户</el-button>
     </el-header>
     <el-main>
@@ -19,6 +22,24 @@
   </el-container>
 
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
+
+export default defineComponent({
+  setup() {
+    const router = useRouter();
+    const handleToLogin = () => {
+      router.push("/login");
+    };
+    return {
+      handleToLogin,
+    };
+  },
+});
+</script>
+
 
 <style lang="scss">
 body,

@@ -25,15 +25,8 @@ export default defineComponent({
 </script>
 <style scoped lang="scss">
 .home {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  padding: 60px 0;
-  background: url("../../assets/background.jpg") no-repeat;
-  background-position: 100% 100%;
-  background-size: cover;
+  width: 100%;
+  height: 100%;
   color: #fff;
   display: flex;
   align-items: center;
