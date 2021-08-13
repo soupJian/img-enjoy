@@ -80,6 +80,8 @@ export default defineComponent({
     .des {
       position: absolute;
       bottom: 0;
+      left: 0;
+      right: 0;
       padding: 10px 10px 8px 6px;
       color: #fff;
       opacity: 0;
