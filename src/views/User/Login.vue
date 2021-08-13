@@ -102,7 +102,7 @@ export default defineComponent({
     };
 
     const handleBack = () => {
-      router.back();
+      router.replace("/");
     };
     const handleToRegister = () => {
       console.log("注册");

@@ -6,7 +6,9 @@
         type="text"
         @click="handleToLogin"
       >登录</el-button>
-      <el-button type="primary">注册账户</el-button>
+      <el-button type="primary">
+        <router-link to="/register">注册账号</router-link>
+      </el-button>
     </el-header>
     <el-main>
       <router-view v-slot="{ Component }">
@@ -40,7 +42,6 @@ export default defineComponent({
 });
 </script>
 
-
 <style lang="scss">
 body,
 #app {
@@ -69,6 +70,9 @@ body,
   align-items: center;
   .el-button {
     color: #fff;
+    a {
+      color: #fff;
+    }
   }
   .el-button--primary {
     padding: 0 5px;
