@@ -8,7 +8,8 @@ import {
   ElCard,
   ElForm,
   ElFormItem,
-  ElInput
+  ElInput,
+  ElScrollbar,
 } from 'element-plus'
 
 // eslint-disable-next-line
@@ -23,5 +24,7 @@ const element = (app: any):void =>{
   app.use(ElForm)
   app.use(ElFormItem)
   app.use(ElInput)
+  app.use(ElScrollbar)
+  app.use(ElCard)
 }
 export default element

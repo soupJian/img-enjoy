@@ -53,7 +53,9 @@ body,
 }
 .el-main {
   top: 60px;
-  bottom: 60px;
+  bottom: 50px;
+  padding: 0 !important;
+  overflow: auto;
 }
 .el-header,
 .el-footer,
@@ -81,6 +83,7 @@ body,
 }
 .el-footer {
   bottom: 0;
+  height: 40px !important;
   text-align: center;
   p {
     line-height: 20px;
