@@ -29,13 +29,19 @@
           label="密码"
           prop="password"
         >
-          <el-input v-model="registerForm.password"></el-input>
+          <el-input
+            v-model="registerForm.password"
+            show-password
+          ></el-input>
         </el-form-item>
         <el-form-item
           label="确认密码"
           prop="confirmPassword"
         >
-          <el-input v-model="registerForm.confirmPassword"></el-input>
+          <el-input
+            v-model="registerForm.confirmPassword"
+            show-password
+          ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -59,6 +65,8 @@
 import { defineComponent, reactive, ref, toRefs } from "vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
+import { getRegister } from "./service";
+import { registerData } from "./data";
 
 export default defineComponent({
   name: "register",
@@ -90,7 +98,11 @@ export default defineComponent({
     const rules = reactive({
       name: [
         { required: true, message: "请输入账号", trigger: "blur" },
-        { max: 6, message: "账号名限制六个字符", trigger: "blur" },
+        {
+          max: 12,
+          message: "账号名限制六个中文汉字或者12个英文字符",
+          trigger: "blur",
+        },
       ],
       password: [
         { required: true, message: "请输入密码", trigger: "blur" },
@@ -107,7 +119,19 @@ export default defineComponent({
         register.value.validate((valid: boolean) => {
           if (valid) {
             // 如果表单都校验通过
-            console.log(state.registerForm);
+            getRegister({
+              name: state.registerForm.name,
+              password: state.registerForm.password,
+            }).then((res: registerData) => {
+              if (res.code === 200) {
+                ElMessage({
+                  message: res.message,
+                  type: "success",
+                  center: true,
+                });
+              }
+              router.replace("/login");
+            });
           } else {
             // 校验失败
             ElMessage({
@@ -115,7 +139,6 @@ export default defineComponent({
               type: "warning",
               center: true,
             });
-            return false;
           }
         });
       }
