@@ -7,7 +7,7 @@
           <el-button
             class="button"
             type="text"
-            @click="handleBack"
+            @click="handleRouterChange('/')"
           >返回</el-button>
         </div>
       </template>
@@ -51,11 +51,11 @@
           <el-button @click="handleResetForm()">重置</el-button>
         </el-form-item>
         <div class="registerAction">
-          <el-button type="text">注册即同意图片共享原则</el-button>
+          <el-button type="text">*注册即同意图片共享原则</el-button>
           <el-button
             type="text"
-            @click="handleToLogin"
-          >已有帐号立即登录~</el-button>
+            @click="handleRouterChange('/login')"
+          >登录</el-button>
         </div>
       </el-form>
     </el-card>
@@ -129,8 +129,8 @@ export default defineComponent({
                   type: "success",
                   center: true,
                 });
+                router.replace("/login");
               }
-              router.replace("/login");
             });
           } else {
             // 校验失败
@@ -150,12 +150,8 @@ export default defineComponent({
       }
     };
 
-    const handleBack = () => {
-      router.replace("/");
-    };
-    const handleToLogin = () => {
-      console.log("登录");
-      router.replace("/login");
+    const handleRouterChange = (path: string) => {
+      router.replace(path);
     };
     return {
       register,
@@ -163,8 +159,7 @@ export default defineComponent({
       ...toRefs(state),
       handleSubmitForm,
       handleResetForm,
-      handleBack,
-      handleToLogin,
+      handleRouterChange,
     };
   },
 });

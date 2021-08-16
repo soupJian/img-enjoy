@@ -7,7 +7,7 @@
           <el-button
             class="button"
             type="text"
-            @click="handleBack"
+            @click="handleRouterChange('/')"
           >返回</el-button>
         </div>
       </template>
@@ -39,11 +39,11 @@
         <div class="loginAction">
           <el-button
             type="text"
-            @click="handleToRegister"
+            @click="handleRouterChange('/register')"
           >注册</el-button>
           <el-button
             type="text"
-            @click="handleToForget"
+            @click="handleRouterChange('/forget')"
           >忘记密码</el-button>
         </div>
       </el-form>
@@ -54,6 +54,8 @@
 import { defineComponent, reactive, ref, toRefs } from "vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
+import { getLogin } from "./service";
+import { registerData } from "./data";
 
 export default defineComponent({
   name: "Login",
@@ -68,20 +70,40 @@ export default defineComponent({
       rules: {
         name: [
           { required: true, message: "请输入账号", trigger: "blur" },
-          { max: 6, message: "账号名限制六个字符", trigger: "blur" },
+          {
+            max: 12,
+            message: "账号名限制六个中文汉字或者12个英文字符",
+            trigger: "blur",
+          },
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "change" },
         ],
       },
     });
-    // const loginForm = ref(null);
+    const handleResetForm = () => {
+      if (login.value) {
+        login.value.resetFields();
+      }
+    };
+
     const handleSubmitForm = () => {
       if (login.value && login.value.validate) {
         login.value.validate((valid: boolean) => {
           if (valid) {
             // 如果表单都校验通过
-            console.log(state.loginForm);
+            getLogin({
+              name: state.loginForm.name,
+              password: state.loginForm.password,
+            }).then((res: registerData) => {
+              ElMessage({
+                message: res.message,
+                type: "success",
+                center: true,
+              });
+              handleResetForm();
+              router.replace("/");
+            });
           } else {
             // 校验失败
             ElMessage({
@@ -89,35 +111,21 @@ export default defineComponent({
               type: "warning",
               center: true,
             });
-            return false;
           }
         });
       }
     };
 
-    const handleResetForm = () => {
-      if (login.value) {
-        login.value.resetFields();
-      }
+    const handleRouterChange = (path: string) => {
+      router.replace(path);
     };
 
-    const handleBack = () => {
-      router.replace("/");
-    };
-    const handleToRegister = () => {
-      console.log("注册");
-    };
-    const handleToForget = () => {
-      console.log("注册");
-    };
     return {
       login,
       ...toRefs(state),
       handleSubmitForm,
       handleResetForm,
-      handleBack,
-      handleToRegister,
-      handleToForget,
+      handleRouterChange,
     };
   },
 });
