@@ -114,6 +114,12 @@ export default defineComponent({
       ],
     });
 
+    const handleResetForm = () => {
+      if (register.value) {
+        register.value.resetFields();
+      }
+    };
+
     const handleSubmitForm = () => {
       if (register.value && register.value.validate) {
         register.value.validate((valid: boolean) => {
@@ -123,14 +129,13 @@ export default defineComponent({
               name: state.registerForm.name,
               password: state.registerForm.password,
             }).then((res: registerData) => {
-              if (res.code === 200) {
-                ElMessage({
-                  message: res.message,
-                  type: "success",
-                  center: true,
-                });
-                router.replace("/login");
-              }
+              ElMessage({
+                message: res.message,
+                type: "success",
+                center: true,
+              });
+              handleResetForm();
+              router.replace("/login");
             });
           } else {
             // 校验失败
@@ -141,12 +146,6 @@ export default defineComponent({
             });
           }
         });
-      }
-    };
-
-    const handleResetForm = () => {
-      if (register.value) {
-        register.value.resetFields();
       }
     };
 
