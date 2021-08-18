@@ -1,7 +1,10 @@
 <template>
   <el-container>
     <el-header>
-      <el-button type="text">上传<i class="el-icon-upload el-icon--right"></i></el-button>
+      <el-button
+        type="text"
+        @click="handleShowUpload"
+      >上传<i class="el-icon-upload el-icon--right"></i></el-button>
       <el-button
         type="text"
         @click="handleToLogin"
@@ -28,15 +31,21 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
+    const store = useStore();
     const handleToLogin = () => {
       router.push("/login");
     };
+    const handleShowUpload = () => {
+      store.commit("toggleShowUpload");
+    };
     return {
       handleToLogin,
+      handleShowUpload,
     };
   },
 });

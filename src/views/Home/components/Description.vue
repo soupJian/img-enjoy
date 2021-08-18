@@ -6,21 +6,75 @@
       <p>全球CDN加速, 支持外链,支持多图上传，原图保存，最大单张10MB</p>
     </div>
     <div class="upload">
-      <el-button
-        type="primary"
-        round
-        size="medium"
-      >开始上传<i class="el-icon-upload el-icon--right"></i></el-button>
+      <el-upload
+        class="upload-demo"
+        ref="upload"
+        accept=".jpg,.png"
+        multiple
+        :limit="9"
+        action="/api/upload"
+        :file-list="fileList"
+        :auto-upload="false"
+        :show-file-list="false"
+        :on-change="handleSelectImg"
+      >
+        <el-button
+          type="primary"
+          round
+          size="medium"
+        >开始上传<i class="el-icon-upload el-icon--right"></i></el-button>
+      </el-upload>
     </div>
     <p class="unable">禁止上传<span class="mention">色情黑产等</span>违法图片</p>
   </div>
+  <UploadImg
+    :fileList="fileList"
+    @handleSelectImg="handleSelectImg"
+    @handleRemove="handleRemove"
+    @clearUpload="clearUpload"
+  />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive, ref, toRefs } from "vue";
+import { useStore } from "vuex";
+import UploadImg from "./UploadImg.vue";
 
+interface stateType {
+  fileList: Blob[];
+}
 export default defineComponent({
   name: "Description",
+  components: {
+    UploadImg,
+  },
+  setup() {
+    const store = useStore();
+    const state: stateType = reactive({
+      fileList: [],
+    });
+    const upload = ref(null);
+    const handleSelectImg = (file: { raw: Blob }) => {
+      state.fileList = [...state.fileList, file.raw];
+      if (!store.state.showUpload) {
+        store.commit("toggleShowUpload");
+      }
+    };
+    const handleRemove = (index: number) => {
+      state.fileList.splice(index, 1);
+    };
+    const clearUpload = () => {
+      state.fileList = [];
+    };
+
+    return {
+      ...toRefs(state),
+      upload,
+      handleSelectImg,
+      handleRemove,
+      clearUpload,
+    };
+  },
 });
 </script>
 <style scoped lang="scss">
