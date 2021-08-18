@@ -30,10 +30,11 @@
             v-for="(item,index) of previewImageList"
             :key="index"
           >
-            <img
+            <el-image
               :src="item"
               alt=""
-            >
+              lazy
+            />
             <div class="layout">
               <i
                 class="el-icon-zoom-in"
@@ -62,11 +63,12 @@
             v-for="(item,index) of uploadAddress"
             :key="item"
           >
-            <img
+            <el-image
               :src="item"
               alt=""
               @click="handlePreviewImage(item)"
-            >
+              lazy
+            />
             <el-input
               v-model="uploadAddress[index]"
               readonly
@@ -87,10 +89,11 @@
         v-show="previewImg != ''"
         @click="handlePreviewImage('')"
       >
-        <img
+        <el-image
           :src="previewImg"
           alt=""
-        >
+          lazy
+        />
       </div>
 
     </div>
@@ -226,14 +229,7 @@ export default defineComponent({
       margin: 0 10px 10px;
       position: relative;
       cursor: default;
-      &:hover {
-        .layout {
-          display: flex;
-          align-items: center;
-          justify-content: space-around;
-        }
-      }
-      img {
+      .el-image {
         width: 100%;
         height: 100%;
       }
@@ -243,8 +239,10 @@ export default defineComponent({
         left: 0;
         bottom: 0;
         right: 0;
-        background: rgba(0, 0, 0, 0.6);
-        display: none;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
         color: #fff;
         font-size: 16px;
         i {
@@ -263,9 +261,10 @@ export default defineComponent({
       align-items: center;
       color: #000;
       margin-bottom: 10px;
-      img {
+      .el-image {
         width: 100px;
         min-width: 100px;
+        margin-right: 10px;
       }
     }
   }

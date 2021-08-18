@@ -5,10 +5,11 @@
       v-for="item of imgList"
       :key="item.id"
     >
-      <img
+      <el-image
         :src="item.src"
         alt=""
-      >
+        lazy
+      />
       <div class="des">
         {{item.des}}
       </div>
