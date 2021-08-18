@@ -9,6 +9,7 @@
         :src="item.src"
         alt=""
         lazy
+        @click="handlePreviewImage(item.src)"
       />
       <div class="des">
         {{item.des}}
@@ -18,10 +19,17 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useStore } from "vuex";
+interface imgList {
+  id: number;
+  src: string;
+  des: string;
+}
 
 export default defineComponent({
   setup() {
-    const imgList = ref<any>([
+    const store = useStore();
+    const imgList = ref<imgList[]>([
       {
         id: 1,
         src: "https://cdn.pixabay.com/photo/2019/03/07/13/00/clouds-4040132__340.jpg",
@@ -53,8 +61,12 @@ export default defineComponent({
         des: "ashd",
       },
     ]);
+    const handlePreviewImage = (src: string) => {
+      store.commit("handlePreviewImage", src);
+    };
     return {
       imgList,
+      handlePreviewImage,
     };
   },
 });

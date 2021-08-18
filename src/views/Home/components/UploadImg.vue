@@ -84,18 +84,6 @@
           class="copy"
         >
       </el-upload>
-      <div
-        class="previewImg"
-        v-show="previewImg != ''"
-        @click="handlePreviewImage('')"
-      >
-        <el-image
-          :src="previewImg"
-          alt=""
-          lazy
-        />
-      </div>
-
     </div>
   </el-collapse-transition>
 </template>
@@ -151,7 +139,7 @@ export default defineComponent({
       emit("handleSelectImg", file);
     };
     const handlePreviewImage = (item: string) => {
-      state.previewImg = item;
+      store.commit("handlePreviewImage", item);
     };
     const handleRemove = (index: number) => {
       emit("handleRemove", index);
@@ -270,20 +258,6 @@ export default defineComponent({
   }
   .copy {
     height: 0;
-  }
-}
-.previewImg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 99;
-  display: flex;
-  align-items: center;
-  img {
-    width: 100%;
   }
 }
 </style>

@@ -2,6 +2,7 @@
   <el-scrollbar wrap-class="scrollbar">
     <Description />
     <Image />
+    <PreviewImage />
   </el-scrollbar>
 </template>
 
@@ -9,12 +10,14 @@
 import { defineComponent } from "vue";
 import Description from "./components/Description.vue";
 import Image from "./components/Image.vue";
+import PreviewImage from "@/components/PreviewImage.vue";
 
 export default defineComponent({
   name: "Home",
   components: {
     Description,
     Image,
+    PreviewImage,
   },
 });
 </script>

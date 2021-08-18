@@ -1,4 +1,5 @@
 
 export interface stateType{
-  showUpload: boolean
+  showUpload: boolean,
+  previewImage: string
 }
