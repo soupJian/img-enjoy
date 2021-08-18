@@ -13,6 +13,9 @@ import {
   ElUpload,
   ElCollapseTransition,
   ElImage,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
 } from 'element-plus'
 
 // eslint-disable-next-line
@@ -31,5 +34,8 @@ const element = (app: any):void =>{
   app.use(ElUpload)
   app.use(ElCollapseTransition)
   app.use(ElImage)
+  app.use(ElDropdown)
+  app.use(ElDropdownItem)
+  app.use(ElDropdownMenu)
 }
 export default element

@@ -160,11 +160,13 @@ export default defineComponent({
     };
     const handleCopy = (item: string) => {
       state.copydata = item;
-      if (copy.value) {
-        copy.value.select();
-        document.execCommand("Copy");
-        ElMessage.success("复制成功");
-      }
+      setTimeout(() => {
+        if (copy.value) {
+          copy.value.select();
+          document.execCommand("Copy");
+          ElMessage.success("复制成功");
+        }
+      }, 60);
     };
     return {
       ...toRefs(state),

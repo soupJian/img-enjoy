@@ -55,12 +55,14 @@ import { defineComponent, reactive, ref, toRefs } from "vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 import { getLogin } from "./service";
-import { registerData } from "./data";
+import { loginData } from "./data";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "Login",
   setup() {
     const router = useRouter();
+    const store = useStore();
     const login = ref<null | HTMLFormElement>(null);
     const state = reactive({
       loginForm: {
@@ -92,15 +94,17 @@ export default defineComponent({
         login.value.validate((valid: boolean) => {
           if (valid) {
             // 如果表单都校验通过
-            getLogin({
+            const user = {
               name: state.loginForm.name,
               password: state.loginForm.password,
-            }).then((res: registerData) => {
+            };
+            getLogin(user).then((res: loginData) => {
               ElMessage({
                 message: res.message,
                 type: "success",
                 center: true,
               });
+              store.commit("setUser", res.user);
               handleResetForm();
               router.replace("/");
             });

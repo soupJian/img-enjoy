@@ -4,5 +4,9 @@ export interface registerData{
 }
 export interface loginData{
   code: number,
-  message: string
+  message: string,
+  user: {
+    id: number,
+    name: string
+  }
 }
