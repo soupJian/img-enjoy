@@ -38,11 +38,16 @@ export default defineComponent({
   right: 0;
   background: rgba(0, 0, 0, 0.7);
   z-index: 99;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  img {
+  padding: 10%;
+  .el-image {
     width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      max-width: 100%;
+    }
   }
 }
 </style>
