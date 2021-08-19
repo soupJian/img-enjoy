@@ -26,7 +26,9 @@ export default createStore<stateType>({
       state.previewImage = src
     },
     setUser(state:stateType,user:user){
-      localStorage.setItem("user", JSON.stringify(user));
+      if(user.id){
+        localStorage.setItem("user", JSON.stringify(user));
+      }
       state.user = user
     }
   },

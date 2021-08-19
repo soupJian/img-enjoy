@@ -16,7 +16,7 @@
       >
         <router-link to="/register">注册账号</router-link>
       </el-button>
-      <el-dropdown>
+      <el-dropdown v-if="user.id">
         <span
           class="el-dropdown-link"
           style="margin-left: 5px;"
@@ -27,9 +27,13 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>首页</el-dropdown-item>
-            <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item>
+              <router-link to="/">首页</router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <router-link to="/self">个人中心</router-link>
+            </el-dropdown-item>
+            <el-dropdown-item @click="loginOut">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -69,10 +73,15 @@ export default defineComponent({
     const handleShowUpload = () => {
       store.commit("toggleShowUpload");
     };
+    const loginOut = () => {
+      localStorage.clear();
+      store.commit("setUser", { id: null, name: null });
+    };
     return {
       user,
       handleToLogin,
       handleShowUpload,
+      loginOut,
     };
   },
 });
@@ -83,6 +92,9 @@ export default defineComponent({
 .el-dropdown-menu__item:focus {
   background: #409eff !important;
   color: #fff !important;
+  a {
+    color: #fff;
+  }
 }
 body,
 #app {
