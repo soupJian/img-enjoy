@@ -7,7 +7,7 @@ const request = (data: AxiosRequestConfig):any => {
   const url:string = baseUrl + data.url
   // 请求头
   const userStr:string | null = localStorage.getItem("user")
-  let id:number | null
+  let id: number | null = null
   if(userStr){
     id = JSON.parse(userStr).id
   }
