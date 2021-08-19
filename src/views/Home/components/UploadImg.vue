@@ -1,4 +1,3 @@
-
 <template>
   <el-collapse-transition>
     <div>
@@ -6,7 +5,7 @@
         v-show="showUpload"
         class="upload"
         drag
-        accept=".jpg,.png,.jpeg"
+        accept=".jpg,.png,.jpeg,.webp"
         multiple
         action="/api/upload"
         :auto-upload="false"
@@ -140,8 +139,17 @@ export default defineComponent({
       state.uploadAddress = [];
       state.copydata = "";
     };
-    const handleSelectImg = (file: Blob) => {
-      emit("handleSelectImg", file);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleSelectImg = (file: { name: string; raw: Blob }): boolean => {
+      const index = file.name.lastIndexOf(".");
+      //获取后缀 判断文件格式
+      const ext = file.name.substr(index);
+      if (ext !== "jpg" && ext !== "png" && ext !== "webp") {
+        ElMessage.warning("暂不自持此类型文件");
+        return false;
+      }
+      emit("handleSelectImg", file.raw);
+      return true;
     };
     const handlePreviewImage = (item: string) => {
       store.commit("handlePreviewImage", item);

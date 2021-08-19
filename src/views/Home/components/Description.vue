@@ -9,7 +9,7 @@
       <el-upload
         class="upload-demo"
         ref="upload"
-        accept=".jpg,.png,.jpeg"
+        accept=".jpg,.png,.jpeg,.webp"
         multiple
         :limit="9"
         action="/api/upload"
@@ -57,7 +57,7 @@ export default defineComponent({
       fileList: [],
     });
     const upload = ref(null);
-    const handleSelectImg = (file: { raw: Blob }) => {
+    const handleSelectImg = (file: { name: string; raw: Blob }) => {
       state.fileList = [...state.fileList, file.raw];
       if (!store.state.showUpload) {
         store.commit("toggleShowUpload");
