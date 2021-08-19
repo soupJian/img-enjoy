@@ -17,7 +17,7 @@ const request = (data: AxiosRequestConfig):any => {
       method:data.method,
       data: data.data ? data.data: null,
       params: data.params ? data.params : null,
-      headers: {"id": `${id}`}
+      headers: {"id": id}
     }).then((res:{data:{code:number,message:string}})=>{
       if(res.data.code === 0){
         ElMessage({

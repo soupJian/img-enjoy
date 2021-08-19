@@ -98,7 +98,7 @@
 <script lang="ts">
 import { useStore } from "vuex";
 import { computed, defineComponent, reactive, toRefs, ref } from "vue";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElLoading } from "element-plus";
 import { postUpload } from "./service";
 import { uploadRes } from "./data";
 
@@ -163,7 +163,14 @@ export default defineComponent({
       for (let i = 0; i < state.uploadList.length; i++) {
         formData.append("file", state.uploadList[i]);
       }
+      const loadingInstance = ElLoading.service({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      })
       postUpload(formData).then((res: uploadRes) => {
+        loadingInstance.close()
         ElMessage.success(res.message);
         emit("clearUpload");
         state.uploadAddress = state.uploadAddress.concat(res.address);
