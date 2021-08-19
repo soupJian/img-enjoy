@@ -27,7 +27,7 @@
           label="密码"
           prop="password"
         >
-          <el-input v-model="loginForm.password"></el-input>
+          <el-input v-model="loginForm.password" show-password></el-input>
         </el-form-item>
         <el-form-item>
           <el-button

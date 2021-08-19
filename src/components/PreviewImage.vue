@@ -39,15 +39,14 @@ export default defineComponent({
   background: rgba(0, 0, 0, 0.7);
   z-index: 99;
   padding: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .el-image {
-    width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-      max-width: 100%;
-    }
+    max-width: 100%;
+    width: auto !important;
+    height: 100% !important;
   }
 }
 </style>
