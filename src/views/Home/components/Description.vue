@@ -9,7 +9,7 @@
       <el-upload
         class="upload-demo"
         ref="upload"
-        accept=".jpg,.png"
+        accept=".jpg,.png,.jpeg"
         multiple
         :limit="9"
         action="/api/upload"
@@ -17,6 +17,7 @@
         :auto-upload="false"
         :show-file-list="false"
         :on-change="handleSelectImg"
+        :on-exceed="handleExceed"
       >
         <el-button
           type="primary"
@@ -32,10 +33,12 @@
     @handleSelectImg="handleSelectImg"
     @handleRemove="handleRemove"
     @clearUpload="clearUpload"
+    @handleExceed="handleExceed"
   />
 </template>
 
 <script lang="ts">
+import { ElMessage } from "element-plus";
 import { defineComponent, reactive, ref, toRefs } from "vue";
 import { useStore } from "vuex";
 import UploadImg from "./UploadImg.vue";
@@ -66,6 +69,9 @@ export default defineComponent({
     const clearUpload = () => {
       state.fileList = [];
     };
+    const handleExceed = () => {
+      ElMessage.error("选择图片已超过限制，最多上传9张图片");
+    };
 
     return {
       ...toRefs(state),
@@ -73,6 +79,7 @@ export default defineComponent({
       handleSelectImg,
       handleRemove,
       clearUpload,
+      handleExceed,
     };
   },
 });

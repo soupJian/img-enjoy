@@ -6,13 +6,14 @@
         v-show="showUpload"
         class="upload"
         drag
-        accept=".jpg,.png"
+        accept=".jpg,.png,.jpeg"
         multiple
         :limit="9"
         action="/api/upload"
         :auto-upload="false"
         :show-file-list="false"
         :on-change="handleSelectImg"
+        :on-exceed="handleExceed"
       >
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -65,10 +66,16 @@
           >
             <el-image
               :src="item"
-              alt=""
               @click="handlePreviewImage(item)"
               lazy
-            />
+            >
+              <template #placeholder>
+                <div class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div>
+              </template>
+            </el-image>
+
             <el-input
               v-model="uploadAddress[index]"
               readonly
@@ -148,6 +155,10 @@ export default defineComponent({
       if (state.uploadList.length === 0) {
         return false;
       }
+      if (state.uploadList.length > 9) {
+        ElMessage.warning("一次最大上传9张,请删除部分图片");
+        return false;
+      }
       const formData = new FormData();
       for (let i = 0; i < state.uploadList.length; i++) {
         formData.append("file", state.uploadList[i]);
@@ -168,6 +179,9 @@ export default defineComponent({
         }
       }, 60);
     };
+    const handleExceed = () => {
+      emit("handleExceed");
+    };
     return {
       ...toRefs(state),
       copy,
@@ -177,6 +191,7 @@ export default defineComponent({
       handlePreviewImage,
       handleRemove,
       handleCopy,
+      handleExceed,
     };
   },
 });
@@ -189,6 +204,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: auto;
   background: rgba(0, 0, 0, 0.6);
   :deep(.el-upload) {
     width: 100% !important;
@@ -198,13 +214,15 @@ export default defineComponent({
       padding-bottom: 20px;
       width: 100% !important;
       height: auto !important;
+      overflow: initial;
+      border-radius: 0;
     }
   }
   .close {
     color: #000;
     position: fixed;
     top: 10px;
-    right: 10px;
+    right: 20px;
   }
   .imgPrew {
     margin: 20px;
