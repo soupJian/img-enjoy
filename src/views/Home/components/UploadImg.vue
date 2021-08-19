@@ -8,12 +8,10 @@
         drag
         accept=".jpg,.png,.jpeg"
         multiple
-        :limit="9"
         action="/api/upload"
         :auto-upload="false"
         :show-file-list="false"
         :on-change="handleSelectImg"
-        :on-exceed="handleExceed"
       >
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -168,9 +166,9 @@ export default defineComponent({
         text: "Loading",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)",
-      })
+      });
       postUpload(formData).then((res: uploadRes) => {
-        loadingInstance.close()
+        loadingInstance.close();
         ElMessage.success(res.message);
         emit("clearUpload");
         state.uploadAddress = state.uploadAddress.concat(res.address);
@@ -186,9 +184,6 @@ export default defineComponent({
         }
       }, 60);
     };
-    const handleExceed = () => {
-      emit("handleExceed");
-    };
     return {
       ...toRefs(state),
       copy,
@@ -198,7 +193,6 @@ export default defineComponent({
       handlePreviewImage,
       handleRemove,
       handleCopy,
-      handleExceed,
     };
   },
 });

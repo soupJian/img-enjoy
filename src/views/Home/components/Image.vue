@@ -76,8 +76,13 @@ export default defineComponent({
   padding: 0 20px 0 10px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
   align-items: center;
+  @media screen and (max-width: 900px) {
+    justify-content: center;
+  }
+  @media screen and (min-width: 900px) {
+    justify-content: flex-start;
+  }
   .item {
     position: relative;
     margin-left: 10px;
