@@ -17,6 +17,7 @@ import {
   ElDropdownItem,
   ElDropdownMenu,
   ElEmpty,
+  ElPageHeader,
 } from 'element-plus'
 
 // eslint-disable-next-line
@@ -39,5 +40,6 @@ const element = (app: any):void =>{
   app.use(ElDropdownItem)
   app.use(ElDropdownMenu)
   app.use(ElEmpty)
+  app.use(ElPageHeader)
 }
 export default element
