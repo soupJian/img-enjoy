@@ -9,7 +9,7 @@
       <el-upload
         class="upload-demo"
         ref="upload"
-        accept=".jpg,.png,.jpeg,.webp"
+        accept="image/*"
         multiple
         :limit="9"
         action="/api/upload"
@@ -58,6 +58,13 @@ export default defineComponent({
     });
     const upload = ref(null);
     const handleSelectImg = (file: { name: string; raw: Blob }) => {
+      const index = file.name.lastIndexOf(".");
+      //获取后缀 判断文件格式
+      const ext = file.name.substr(index + 1);
+      if (ext !== "jpg" && ext !== "png" && ext !== "webp" && ext !== "jpeg") {
+        ElMessage.warning("暂不自持此类型文件");
+        return false;
+      }
       state.fileList = [...state.fileList, file.raw];
       if (!store.state.showUpload) {
         store.commit("toggleShowUpload");

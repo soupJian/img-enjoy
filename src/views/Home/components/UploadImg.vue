@@ -5,7 +5,7 @@
         v-show="showUpload"
         class="upload"
         drag
-        accept=".jpg,.png,.jpeg,.webp"
+        accept="image/*"
         multiple
         action="/api/upload"
         :auto-upload="false"
