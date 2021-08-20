@@ -31,7 +31,7 @@
               <router-link to="/">首页</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
-              <router-link to="/self">个人中心</router-link>
+              <router-link to="/self_upload">我的上传</router-link>
             </el-dropdown-item>
             <el-dropdown-item @click="loginOut">退出登录</el-dropdown-item>
           </el-dropdown-menu>
@@ -50,11 +50,12 @@
       <p>访客：123</p>
     </el-footer>
   </el-container>
-
+  <PreviewImage />
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
+import PreviewImage from "@/components/PreviewImage.vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
@@ -63,6 +64,9 @@ interface user {
   name: null | string;
 }
 export default defineComponent({
+  components: {
+    PreviewImage,
+  },
   setup() {
     const router = useRouter();
     const store = useStore();

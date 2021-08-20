@@ -1,5 +1,6 @@
 import request from '@/utils/axios'
 import {registerData,loginData} from './data'
+import {ImgRes} from '@/utils/data'
 
 // 注册
 export const getRegister = async (data:{name:string,password:string}):Promise<registerData> =>{
@@ -18,4 +19,16 @@ export const getLogin = async (data:{name:string,password:string}):Promise<login
     data,
   })
   return res as loginData
+}
+export const getSelfUpload = async():Promise<ImgRes> => {
+  const res = await request({
+    url: '/self_upload'
+  })
+  return res as ImgRes
+}
+export const getSelfLove = async():Promise<ImgRes> => {
+  const res = await request({
+    url: '/self_love'
+  })
+  return res as ImgRes
 }

@@ -2,7 +2,6 @@
   <el-scrollbar wrap-class="scrollbar">
     <Description />
     <ImageList :ImgList="hotImgList" />
-    <PreviewImage />
   </el-scrollbar>
 </template>
 
@@ -10,7 +9,6 @@
 import { defineComponent, ref, onMounted } from "vue";
 import Description from "./components/Description.vue";
 import ImageList from "@/components/ImageList.vue";
-import PreviewImage from "@/components/PreviewImage.vue";
 import { ImgRes, Image } from "@/utils/data";
 import { getHotImg } from "./service";
 
@@ -19,7 +17,6 @@ export default defineComponent({
   components: {
     Description,
     ImageList,
-    PreviewImage,
   },
   setup() {
     const hotImgList = ref<Image[]>([]);

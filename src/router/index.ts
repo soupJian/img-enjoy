@@ -18,10 +18,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/User/Register.vue')
   },
   {
-    path: '/self',
-    name: 'user',
-    component: () => import('../views/User/Index.vue')
-  }
+    path: '/self_upload',
+    name: 'self_upload',
+    component: () => import('../views/User/SelfUpload.vue')
+  },
 ]
 
 const router = createRouter({
