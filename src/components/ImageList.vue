@@ -2,7 +2,7 @@
   <div class="image-wrap">
     <div
       class="item"
-      v-for="item of hotImgList"
+      v-for="item of ImgList"
       :key="item.url"
       :style="{ flexShrink: `${item.proportion}`, flexGrow: `${item.proportion}`,
       maxWidth: `${380*item.proportion}px`,flexBasis: `${220*item.proportion}px` }"
@@ -20,28 +20,23 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent } from "vue";
 import { useStore } from "vuex";
-import { getHotImg } from "./service";
-import { hotImgRes, hotImage } from "./data";
+import { Image } from "@/utils/data";
 
 export default defineComponent({
+  props: {
+    ImgList: {
+      type: Array,
+      default: () => [] as Image[],
+    },
+  },
   setup() {
     const store = useStore();
-    const hotImgList = ref<hotImage[]>([]);
     const handlePreviewImage = (src: string) => {
       store.commit("handlePreviewImage", src);
     };
-    const getHotImage = () => {
-      getHotImg().then((res: hotImgRes) => {
-        hotImgList.value = res.hotImage;
-      });
-    };
-    onMounted(() => {
-      getHotImage();
-    });
     return {
-      hotImgList,
       handlePreviewImage,
     };
   },
