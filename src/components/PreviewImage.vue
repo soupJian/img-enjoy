@@ -42,7 +42,7 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   .el-image {
-    max-width: 100%;
+    max-width: 80%;
   }
 }
 </style>
