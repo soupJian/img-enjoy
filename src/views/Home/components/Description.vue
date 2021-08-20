@@ -27,6 +27,10 @@
       </el-upload>
     </div>
     <p class="unable">禁止上传<span class="mention">色情黑产等</span>违法图片</p>
+    <div class="total">
+      <p>本站已托管 {{totalImg}} 张图片</p>
+      <p>访客：{{totalAccess}} </p>
+    </div>
   </div>
   <UploadImg
     :fileList="fileList"
@@ -48,6 +52,16 @@ interface stateType {
 }
 export default defineComponent({
   name: "Description",
+  props: {
+    totalImg: {
+      type: Number,
+      default: 0,
+    },
+    totalAccess: {
+      type: Number,
+      default: 0,
+    },
+  },
   components: {
     UploadImg,
   },
@@ -95,6 +109,7 @@ export default defineComponent({
 .description {
   width: 100%;
   height: 100%;
+  position: relative;
   color: #fff;
   display: flex;
   align-items: center;
@@ -134,6 +149,13 @@ export default defineComponent({
     .mention {
       color: #00a7da;
     }
+  }
+  .total {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    text-align: center;
   }
 }
 </style>
