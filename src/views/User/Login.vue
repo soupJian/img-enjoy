@@ -27,7 +27,10 @@
           label="密码"
           prop="password"
         >
-          <el-input v-model="loginForm.password" show-password></el-input>
+          <el-input
+            v-model="loginForm.password"
+            show-password
+          ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -41,9 +44,13 @@
             type="text"
             @click="handleRouterChange('/register')"
           >注册</el-button>
-          <el-button
+          <!-- <el-button
             type="text"
             @click="handleRouterChange('/forget')"
+          >忘记密码</el-button> -->
+          <el-button
+            type="text"
+            @click="handleToForget()"
           >忘记密码</el-button>
         </div>
       </el-form>
@@ -88,7 +95,9 @@ export default defineComponent({
         login.value.resetFields();
       }
     };
-
+    const handleToForget = () => {
+      ElMessage.warning("暂未开放此功能");
+    };
     const handleSubmitForm = () => {
       if (login.value && login.value.validate) {
         login.value.validate((valid: boolean) => {
@@ -119,17 +128,16 @@ export default defineComponent({
         });
       }
     };
-
     const handleRouterChange = (path: string) => {
       router.replace(path);
     };
-
     return {
       login,
       ...toRefs(state),
       handleSubmitForm,
       handleResetForm,
       handleRouterChange,
+      handleToForget,
     };
   },
 });
