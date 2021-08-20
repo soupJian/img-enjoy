@@ -10,19 +10,20 @@
       </el-scrollbar>
     </el-main>
     <el-footer>
-      <p>本站已托管 100,00.00 张图片</p>
-      <p>访客：123</p>
+      <p>本站已托管 {{totalImg}} 张图片</p>
+      <p>访客：{{totalAccess}} </p>
     </el-footer>
   </el-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, reactive, toRefs } from "vue";
 import Description from "./components/Description.vue";
 import ImageList from "@/components/ImageList.vue";
 import MyHeader from "./components/MyHeader.vue";
 import { ImgRes, Image } from "@/utils/data";
-import { getHotImg } from "./service";
+import { info } from "./data";
+import { getHotImg, getInfo } from "./service";
 
 export default defineComponent({
   name: "Home",
@@ -33,15 +34,27 @@ export default defineComponent({
   },
   setup() {
     const hotImgList = ref<Image[]>([]);
+    const state: info = reactive({
+      totalAccess: 0,
+      totalImg: 0,
+    });
     const getHotImage = () => {
       getHotImg().then((res: ImgRes) => {
         hotImgList.value = res.ImageList;
       });
     };
+    const getAccessInfo = () => {
+      getInfo().then((res: info) => {
+        state.totalAccess = res.totalAccess;
+        state.totalImg = res.totalImg;
+      });
+    };
     onMounted(() => {
       getHotImage();
+      getAccessInfo();
     });
     return {
+      ...toRefs(state),
       hotImgList,
     };
   },
