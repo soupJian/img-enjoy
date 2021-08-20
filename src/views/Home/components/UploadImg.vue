@@ -143,12 +143,12 @@ export default defineComponent({
     const handleSelectImg = (file: { name: string; raw: Blob }): boolean => {
       const index = file.name.lastIndexOf(".");
       //获取后缀 判断文件格式
-      const ext = file.name.substr(index);
-      if (ext !== "jpg" && ext !== "png" && ext !== "webp") {
+      const ext = file.name.substr(index + 1);
+      if (ext !== "jpg" && ext !== "png" && ext !== "webp" && ext !== "jpeg") {
         ElMessage.warning("暂不自持此类型文件");
         return false;
       }
-      emit("handleSelectImg", file.raw);
+      emit("handleSelectImg", file);
       return true;
     };
     const handlePreviewImage = (item: string) => {

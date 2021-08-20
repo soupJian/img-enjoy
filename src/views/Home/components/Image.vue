@@ -2,70 +2,46 @@
   <div class="image-wrap">
     <div
       class="item"
-      v-for="item of imgList"
-      :key="item.id"
+      v-for="item of hotImgList"
+      :key="item.url"
+      :style="{ flexShrink: `${item.proportion}`, flexGrow: `${item.proportion}`,
+      maxWidth: `${380*item.proportion}px`,flexBasis: `${220*item.proportion}px` }"
     >
       <el-image
-        :src="item.src"
+        :src="item.url"
         alt=""
         lazy
-        @click="handlePreviewImage(item.src)"
+        @click="handlePreviewImage(item.url)"
       />
       <div class="des">
-        {{item.des}}
+        {{item.description}}
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { useStore } from "vuex";
-interface imgList {
-  id: number;
-  src: string;
-  des: string;
-}
+import { getHotImg } from "./service";
+import { hotImgRes, hotImage } from "./data";
 
 export default defineComponent({
   setup() {
     const store = useStore();
-    const imgList = ref<imgList[]>([
-      {
-        id: 1,
-        src: "https://cdn.pixabay.com/photo/2019/03/07/13/00/clouds-4040132__340.jpg",
-        des: "123",
-      },
-      {
-        id: 2,
-        src: "https://cdn.pixabay.com/photo/2021/06/07/22/42/tulips-6319208__340.jpg",
-        des: "234",
-      },
-      {
-        id: 3,
-        src: "https://cdn.pixabay.com/photo/2021/07/29/20/47/church-6508068__340.jpg",
-        des: "米搜狐",
-      },
-      {
-        id: 3,
-        src: "https://cdn.pixabay.com/photo/2021/08/04/15/38/mountains-6522018__340.jpg",
-        des: "hhh",
-      },
-      {
-        id: 4,
-        src: "https://cdn.pixabay.com/photo/2021/07/25/12/04/monkey-6491669__340.jpg",
-        des: "d",
-      },
-      {
-        id: 5,
-        src: "//icon.qiantucdn.com/static/images/logo-new.png",
-        des: "ashd",
-      },
-    ]);
+    const hotImgList = ref<hotImage[]>([]);
     const handlePreviewImage = (src: string) => {
       store.commit("handlePreviewImage", src);
     };
+    const getHotImage = () => {
+      getHotImg().then((res: hotImgRes) => {
+        hotImgList.value = res.hotImage;
+      });
+    };
+    onMounted(() => {
+      getHotImage();
+    });
     return {
-      imgList,
+      hotImgList,
       handlePreviewImage,
     };
   },
@@ -73,15 +49,14 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .image-wrap {
-  padding: 0 20px 0 10px;
+  max-width: 1800px;
+  margin: 20px auto;
+  padding: 0 20px;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  justify-content: flex-start;
   @media screen and (max-width: 900px) {
     justify-content: center;
-  }
-  @media screen and (min-width: 900px) {
-    justify-content: flex-start;
   }
   .item {
     position: relative;
@@ -92,8 +67,9 @@ export default defineComponent({
         opacity: 1;
       }
     }
-    img {
+    .el-image {
       width: 100%;
+      height: 100%;
     }
     .des {
       position: absolute;
