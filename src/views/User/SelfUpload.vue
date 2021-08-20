@@ -1,7 +1,10 @@
 <template>
   <div class="self">
     <div class="header">
-      <span @click="goBack">
+      <span
+        @click="goBack"
+        style="cursor:pointer;"
+      >
         <i class="el-icon-arrow-left"></i>
         返回
       </span>

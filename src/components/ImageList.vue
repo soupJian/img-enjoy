@@ -46,7 +46,6 @@ export default defineComponent({
 .image-wrap {
   max-width: 1800px;
   margin: 20px auto;
-  padding: 0 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

@@ -1,19 +1,15 @@
 <template>
-  <el-container>
-    <el-header>
+  <el-scrollbar>
+    <header>
       <my-header />
-    </el-header>
-    <el-main>
-      <el-scrollbar wrap-class="scrollbar">
-        <Description />
-        <ImageList :ImgList="hotImgList" />
-      </el-scrollbar>
-    </el-main>
-    <el-footer>
+    </header>
+    <Description />
+    <ImageList :ImgList="hotImgList" />
+    <footer class="footer">
       <p>本站已托管 {{totalImg}} 张图片</p>
       <p>访客：{{totalAccess}} </p>
-    </el-footer>
-  </el-container>
+    </footer>
+  </el-scrollbar>
 </template>
 
 <script lang="ts">
@@ -61,20 +57,16 @@ export default defineComponent({
 });
 </script>
 <style scoped lang="scss">
-.scrollbar {
-  height: 100%;
-}
 :deep(.el-scrollbar__view) {
   height: 100%;
+  padding: 0 20px;
 }
 .el-main {
-  top: 60px;
-  bottom: 50px;
+  top: 0;
+  bottom: 0;
   padding: 0 !important;
   overflow: auto;
 }
-.el-header,
-.el-footer,
 .el-main {
   position: fixed;
   left: 0;
@@ -109,7 +101,7 @@ export default defineComponent({
     margin-bottom: 20px;
   }
 }
-.el-footer {
+.footer {
   bottom: 0;
   height: 40px !important;
   text-align: center;
