@@ -30,6 +30,11 @@ const request = (data: AxiosRequestConfig):any => {
       }
     })
     .catch(err=>{
+      ElMessage({
+        message: err,
+        type: "error",
+        center: true,
+      });
       reject(err)
     })
   })
