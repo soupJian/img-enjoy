@@ -14,10 +14,6 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { stateType } from "@/store/data";
 
-interface user {
-  id: null | number;
-  name: null | string;
-}
 export default defineComponent({
   components: {
     PreviewImage,
