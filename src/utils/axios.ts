@@ -2,7 +2,7 @@ import axios,{ AxiosRequestConfig } from 'axios';
 import { ElMessage } from "element-plus";
 
 // eslint-disable-next-line
-const request = (data: AxiosRequestConfig):any => {
+const request = <T>(data: AxiosRequestConfig):Promise<T> => {
   const baseUrl= '/api'
   const url:string = baseUrl + data.url
   // 请求头
@@ -18,7 +18,7 @@ const request = (data: AxiosRequestConfig):any => {
       data: data.data ? data.data: null,
       params: data.params ? data.params : null,
       headers: {"id": id}
-    }).then((res:{data:{code:number,message:string}})=>{
+    }).then((res:{data:{code:number,message:string,data: T}})=>{
       if(res.data.code === 0){
         ElMessage({
           message: res.data.message,
@@ -26,7 +26,7 @@ const request = (data: AxiosRequestConfig):any => {
           center: true,
         });
       }else{
-        resolve(res.data)
+        resolve(res.data.data)
       }
     })
     .catch(err=>{
