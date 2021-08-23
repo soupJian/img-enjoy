@@ -1,7 +1,6 @@
 import axios,{ AxiosRequestConfig } from 'axios';
 import { ElMessage } from "element-plus";
 
-// eslint-disable-next-line
 const request = <T>(data: AxiosRequestConfig):Promise<T> => {
   const baseUrl= '/api'
   const url:string = baseUrl + data.url
