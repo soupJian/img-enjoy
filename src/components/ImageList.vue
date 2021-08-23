@@ -49,13 +49,16 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 750px) {
     justify-content: center;
   }
   .item {
     position: relative;
-    margin-left: 10px;
     margin-bottom: 10px;
+    @media screen and (min-width: 750px) {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
     &:hover {
       .des {
         opacity: 1;

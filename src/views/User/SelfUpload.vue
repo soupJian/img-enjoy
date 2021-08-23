@@ -59,8 +59,9 @@ export default defineComponent({
   bottom: 0;
   right: 0;
   padding-bottom: 20px;
-  .scrollbar {
+  .el-scrollbar {
     height: calc(100% - 40px);
+    padding: 0 20px;
   }
 }
 .el-empty {

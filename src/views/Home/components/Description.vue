@@ -123,12 +123,12 @@ export default defineComponent({
     font-weight: 100;
     line-height: 30px;
   }
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 750px) {
     .des {
       display: none;
     }
   }
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 750px) {
     .des {
       margin: 20px;
       text-align: center;

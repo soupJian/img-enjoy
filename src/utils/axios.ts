@@ -17,7 +17,7 @@ const request = <T>(data: AxiosRequestConfig):Promise<T> => {
       data: data.data ? data.data: null,
       params: data.params ? data.params : null,
       headers: {"id": id}
-    }).then((res:{data:{code:number,message:string,data: T}})=>{
+    }).then((res:{data:{code:number,message?:string,data: T}})=>{
       if(res.data.code === 0){
         ElMessage({
           message: res.data.message,
