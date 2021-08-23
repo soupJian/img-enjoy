@@ -43,16 +43,13 @@
 import { computed, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { stateType } from "@/store/data";
 
-interface user {
-  id: null | number;
-  name: null | string;
-}
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const store = useStore();
-    const user = computed(() => store.state.user as user);
+    const store = useStore<stateType>();
+    const user = computed(() => store.state.user);
     const handleToLogin = () => {
       router.push("/login");
     };

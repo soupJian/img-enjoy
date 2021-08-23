@@ -94,12 +94,13 @@
 
 <script lang="ts">
 import { useStore } from "vuex";
+import { stateType } from "@/store/data";
 import { computed, defineComponent, reactive, toRefs, ref } from "vue";
 import { ElMessage, ElLoading } from "element-plus";
 import { postUpload } from "./service";
 import { uploadRes } from "./data";
 
-interface stateType {
+interface state {
   showUpload: boolean;
   uploadList: Blob[];
   previewImageList: string[];
@@ -117,10 +118,10 @@ export default defineComponent({
   },
   emit: ["handleSelectImg", "handleRemove", "clearUpload"],
   setup(props, { emit }) {
-    const store = useStore();
+    const store = useStore<stateType>();
     const copy = ref<HTMLInputElement | null>(null);
-    const state: stateType = reactive({
-      showUpload: computed(() => store.state.showUpload as boolean),
+    const state: state = reactive({
+      showUpload: computed(() => store.state.showUpload),
       uploadList: computed(() => props.fileList as Blob[]),
       previewImageList: computed(() => {
         let arr: string[] = [];
@@ -139,7 +140,6 @@ export default defineComponent({
       state.uploadAddress = [];
       state.copydata = "";
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSelectImg = (file: { name: string; raw: Blob }): boolean => {
       const index = file.name.lastIndexOf(".");
       //获取后缀 判断文件格式

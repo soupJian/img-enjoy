@@ -12,12 +12,13 @@
   </div>
 </template>
 <script lang="ts">
+import { stateType } from "@/store/data";
 import { computed, defineComponent } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
-    const store = useStore();
+    const store = useStore<stateType>();
     const previewImg = computed(() => store.state.previewImage);
     const closePreviewImage = () => {
       store.commit("handlePreviewImage", "");

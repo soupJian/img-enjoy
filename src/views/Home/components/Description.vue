@@ -45,9 +45,10 @@
 import { ElMessage } from "element-plus";
 import { defineComponent, reactive, ref, toRefs } from "vue";
 import { useStore } from "vuex";
+import { stateType } from "@/store/data";
 import UploadImg from "./UploadImg.vue";
 
-interface stateType {
+interface state {
   fileList: Blob[];
 }
 export default defineComponent({
@@ -66,8 +67,8 @@ export default defineComponent({
     UploadImg,
   },
   setup() {
-    const store = useStore();
-    const state: stateType = reactive({
+    const store = useStore<stateType>();
+    const state: state = reactive({
       fileList: [],
     });
     const upload = ref(null);
