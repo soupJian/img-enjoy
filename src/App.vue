@@ -25,7 +25,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const store = useStore<stateType>();
-    const user = computed(() => store.state.user as user);
+    const user = computed(() => store.state.user);
     const handleToLogin = () => {
       router.push("/login");
     };
