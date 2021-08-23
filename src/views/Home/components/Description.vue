@@ -48,9 +48,6 @@ import { useStore } from "vuex";
 import { stateType } from "@/store/data";
 import UploadImg from "./UploadImg.vue";
 
-interface state {
-  fileList: Blob[];
-}
 export default defineComponent({
   name: "Description",
   props: {
@@ -68,8 +65,8 @@ export default defineComponent({
   },
   setup() {
     const store = useStore<stateType>();
-    const state: state = reactive({
-      fileList: [],
+    const state = reactive({
+      fileList: [] as Blob[],
     });
     const upload = ref(null);
     const handleSelectImg = (file: { name: string; raw: Blob }) => {

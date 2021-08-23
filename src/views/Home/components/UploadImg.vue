@@ -100,15 +100,6 @@ import { ElMessage, ElLoading } from "element-plus";
 import { postUpload } from "./service";
 import { uploadRes } from "./data";
 
-interface state {
-  showUpload: boolean;
-  uploadList: Blob[];
-  previewImageList: string[];
-  previewImg: string;
-  uploadAddress: string[];
-  copydata: string;
-}
-
 export default defineComponent({
   props: {
     fileList: {
@@ -120,7 +111,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const store = useStore<stateType>();
     const copy = ref<HTMLInputElement | null>(null);
-    const state: state = reactive({
+    const state = reactive({
       showUpload: computed(() => store.state.showUpload),
       uploadList: computed(() => props.fileList as Blob[]),
       previewImageList: computed(() => {
@@ -131,7 +122,7 @@ export default defineComponent({
         return arr as string[];
       }),
       previewImg: "",
-      uploadAddress: [],
+      uploadAddress: [] as string[],
       copydata: "",
     });
     const handCloseUpload = () => {
