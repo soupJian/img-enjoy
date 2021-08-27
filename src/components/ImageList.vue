@@ -57,7 +57,6 @@ export default defineComponent({
     margin-bottom: 10px;
     @media screen and (min-width: 750px) {
       margin-left: 10px;
-      margin-right: 10px;
     }
     &:hover {
       .des {
